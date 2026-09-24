@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>❄ about me</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* light: gruvbox-light structure, icy palette */
+    --bg0: #eef6fa;
+    --bg1: #e0edf4;
+    --bg2: #cfe1ec;
+    --bg3: #b6cfdf;
+    --fg: #1d3442;
+    --fg2: #3f6075;
+    --gray: #6b8a9b;
+    --c1: #1f78b4;
+    --c2: #158a94;
+    --c3: #4a5fc0;
+    --c4: #2f8a6e;
+    --c5: #3d6f8f;
+    --c6: #2b6ea3;
+    --on-accent: #eef6fa;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg0: #16222b;
+      --bg1: #1f2f3a;
+      --bg2: #2a3f4d;
+      --bg3: #3b5566;
+      --fg: #dcecf4;
+      --fg2: #a9c4d3;
+      --gray: #7594a5;
+      --c1: #7cc4f4;
+      --c2: #8be0e3;
+      --c3: #b4c6ff;
+      --c4: #a9e5d1;
+      --c5: #d6ecf7;
+      --c6: #6fa8dc;
+      --on-accent: #16222b;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg0: #16222b;
+    --bg1: #1f2f3a;
+    --bg2: #2a3f4d;
+    --bg3: #3b5566;
+    --fg: #dcecf4;
+    --fg2: #a9c4d3;
+    --gray: #7594a5;
+    --c1: #7cc4f4;
+    --c2: #8be0e3;
+    --c3: #b4c6ff;
+    --c4: #a9e5d1;
+    --c5: #d6ecf7;
+    --c6: #6fa8dc;
+    --on-accent: #16222b;
+  }
+  html { scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 48px); scroll-behavior: smooth; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg0);
+    color: var(--fg);
+    font-family: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* dwm-style bar */
+  .bar {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+    display: flex; align-items: stretch; justify-content: space-between;
+    background: var(--bg1); border-bottom: 1px solid var(--bg3);
+    font-size: 12px;
+  }
+  .tags { display: flex; overflow-x: auto; min-width: 0; flex: 1; }
+  .tags a {
+    color: var(--fg2); text-decoration: none; padding: 7px 10px; white-space: nowrap;
+    border-right: 1px solid var(--bg2);
+  }
+  .tags a b { color: var(--gray); font-weight: 500; margin-right: 4px; }
+  .tags a:first-child { background: var(--c1); color: var(--on-accent); }
+  .tags a:first-child b { color: var(--on-accent); }
+  .tags a:not(:first-child):hover { background: var(--bg2); color: var(--fg); }
+  button.theme {
+    font: inherit; font-size: 14px; color: var(--fg2); background: transparent;
+    border: 0; border-left: 1px solid var(--bg2); padding: 7px 12px; cursor: pointer; white-space: nowrap;
+  }
+  button.theme:hover { background: var(--bg2); color: var(--fg); }
+
+  main { max-width: 780px; margin: 0 auto; padding: 32px 16px 90px; }
+
+  .hero { padding: 8px 0 26px; }
+  .hero .flake { color: var(--c2); font-size: 15px; }
+  h1 { font-size: clamp(28px, 8vw, 42px); margin: 6px 0 8px; font-weight: 700; letter-spacing: -.02em; color: var(--c1); }
+  .cur { display: inline-block; width: .55em; height: .95em; background: var(--c2); vertical-align: -2px; margin-left: 4px; animation: blink 1.1s steps(2, start) infinite; }
+  @keyframes blink { to { visibility: hidden; } }
+  @media (prefers-reduced-motion: reduce) { .cur { animation: none; } }
+  .comment { color: var(--gray); }
+
+  section { margin-top: 30px; }
+  h2 { margin: 0 0 4px; font-size: 18px; font-weight: 700; color: var(--c2); }
+  h2 .hash { color: var(--gray); margin-right: 8px; font-weight: 500; }
+  .note { margin: 0 0 14px; color: var(--gray); }
+  .note::before { content: "// "; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    --cc: var(--c1);
+    background: var(--bg1); color: var(--fg);
+    border: 1px solid var(--bg3); border-left: 3px solid var(--cc);
+    padding: 3px 10px; border-radius: 2px;
+    transition: background .12s, border-color .12s;
+  }
+  .chip:nth-child(6n+1) { --cc: var(--c1); }
+  .chip:nth-child(6n+2) { --cc: var(--c2); }
+  .chip:nth-child(6n+3) { --cc: var(--c3); }
+  .chip:nth-child(6n+4) { --cc: var(--c4); }
+  .chip:nth-child(6n+5) { --cc: var(--c5); }
+  .chip:nth-child(6n+6) { --cc: var(--c6); }
+  .chip:hover { background: var(--bg2); border-color: var(--cc); }
+  .chip.more { background: transparent; border-style: dashed; border-left-style: solid; color: var(--gray); }
+
+  .cmd { color: var(--fg2); margin: 0 0 8px; }
+  .cmd .ps { color: var(--c4); margin-right: 8px; }
+  .list { border: 1px solid var(--bg3); background: var(--bg1); border-radius: 2px; }
+  .row { display: flex; gap: 12px; padding: 8px 12px; align-items: baseline; }
+  .row + .row { border-top: 1px solid var(--bg2); }
+  .row .arrow { color: var(--c1); }
+  .row .name { color: var(--c5); font-weight: 700; }
+  .row .role { color: var(--gray); margin-left: auto; }
+
+  /* vim-style statusline */
+  .status {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 5;
+    display: flex; align-items: stretch; font-size: 12px;
+    background: var(--bg2); color: var(--fg2);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    border-top: 1px solid var(--bg3);
+  }
+  .status .mode { background: var(--c2); color: var(--on-accent); font-weight: 700; padding: 4px 12px; }
+  .status .file { padding: 4px 12px; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .status .pos { padding: 4px 12px; background: var(--bg3); color: var(--fg); }
+</style>
+</head>
+<body>
+  <div class="bar">
+    <div class="tags">
+      <a href="#top"><b>1</b>about</a>
+      <a href="#music"><b>2</b>music</a>
+      <a href="#games"><b>3</b>games</a>
+      <a href="#friends"><b>4</b>friends</a>
+    </div>
+    <button class="theme" id="theme" type="button" aria-label="Toggle theme" title="Toggle theme">◐</button>
+  </div>
+
+  <main id="top">
+    <div class="hero">
+      <div class="flake">❄ ~/about.md</div>
+      <h1>about me<span class="cur"></span></h1>
+      <div class="comment"># music, games, friends</div>
+    </div>
+
+    <section id="music">
+      <h2><span class="hash">##</span>music</h2>
+      <p class="note">43 artists on repeat</p>
+      <div class="chips">
+        <span class="chip">Silverstein</span>
+        <span class="chip">Neversmile</span>
+        <span class="chip">Orchid</span>
+        <span class="chip">Yakui the Maid</span>
+        <span class="chip">Merzbow</span>
+        <span class="chip">ISSBROKIE</span>
+        <span class="chip">Sewerslvt</span>
+        <span class="chip">Usedcvnt</span>
+        <span class="chip">goreshit</span>
+        <span class="chip">Aphex Twin</span>
+        <span class="chip">AFX</span>
+        <span class="chip">Anal Cunt</span>
+        <span class="chip">Chikoi the Maid</span>
+        <span class="chip">Akui the Maid</span>
+        <span class="chip">Dorei the Maid</span>
+        <span class="chip">Madoi the Maid</span>
+        <span class="chip">Psiangel</span>
+        <span class="chip">Femtanyl</span>
+        <span class="chip">Jane Air</span>
+        <span class="chip">LSD and the Search for God</span>
+        <span class="chip">Limp Bizkit</span>
+        <span class="chip">Korn</span>
+        <span class="chip">Amatory</span>
+        <span class="chip">Julie</span>
+        <span class="chip">Whirr</span>
+        <span class="chip">My Bloody Valentine</span>
+        <span class="chip">The Cure</span>
+        <span class="chip">The Smiths</span>
+        <span class="chip">Teitanblood</span>
+        <span class="chip">Radiohead</span>
+        <span class="chip">Panchiko</span>
+        <span class="chip">7раса</span>
+        <span class="chip">Дозавтра</span>
+        <span class="chip">ТЕРПИМОСТЬ НОЛЬ</span>
+        <span class="chip">3000 миль до рая</span>
+        <span class="chip">Idea Fix</span>
+        <span class="chip">Evil Not Alone</span>
+        <span class="chip">Soularise</span>
+        <span class="chip">Origami</span>
+        <span class="chip">Deftones</span>
+        <span class="chip">Psychea</span>
+        <span class="chip">6000000себя</span>
+        <span class="chip">Stigmata</span>
+      </div>
+    </section>
+
+    <section id="games">
+      <h2><span class="hash">##</span>favorite games</h2>
+      <p class="note">around 190 in total, too lazy to list them all</p>
+      <div class="chips">
+        <span class="chip">OneShot</span>
+        <span class="chip">Black Souls</span>
+        <span class="chip">Dark Souls</span>
+        <span class="chip">Postal</span>
+        <span class="chip">Hatred</span>
+        <span class="chip">Party Hard</span>
+        <span class="chip more">+ ~180 more</span>
+      </div>
+    </section>
+
+    <section id="friends">
+      <h2><span class="hash">##</span>friends</h2>
+      <div class="cmd"><span class="ps">$</span>ls ~/friends</div>
+      <div class="list">
+        <div class="row"><span class="arrow">&gt;</span><span class="name">Garig</span><span class="role">friend</span></div>
+      </div>
+    </section>
+  </main>
+
+  <div class="status">
+    <span class="mode">NORMAL</span>
+    <span class="file">about.md</span>
+    <span class="pos">utf-8</span>
+  </div>
+
+<script>
+  var root = document.documentElement;
+  try { var saved = localStorage.getItem("theme"); if (saved) root.setAttribute("data-theme", saved); } catch (e) {}
+  document.getElementById("theme").addEventListener("click", function () {
+    var dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var cur = root.getAttribute("data-theme") || (dark ? "dark" : "light");
+    var next = cur === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("theme", next); } catch (e) {}
+  });
+</script>
+</body>
+</html>
